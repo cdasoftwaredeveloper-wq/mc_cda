@@ -1,0 +1,38 @@
+/* Chennai Drone Academy theme: bright blue + robotic fonts */
+:root{
+  --font-display:"Orbitron","Rajdhani",system-ui,sans-serif;
+  --font-ui:"Rajdhani","Noto Sans SC",system-ui,sans-serif;
+  --accent:#2d9cff;--accent-hover:#52b0ff;--accent-dim:rgba(30,144,255,.18);
+  --glow-accent:0 0 22px rgba(0,170,255,.35);
+  --chart-1:#1e90ff;--chart-6:#00e5ff;
+}
+[data-theme=light]{
+  --bg-primary:#e9f4ff;--bg-tertiary:#e1efff;--bg-hover:#d3e8ff;
+  --accent:#0a7cff;--accent-hover:#2e94ff;--accent-dim:rgba(10,124,255,.12);
+  --att3d-canvas-bg:linear-gradient(180deg,#d6eeff 0%,#8fcaff 100%);
+}
+
+body,button,input,select,textarea{font-family:var(--font-ui);font-weight:500;letter-spacing:.2px}
+
+.topbar__logo-text,.dashboard__title,.card__title,h1,h2,h3,
+.att3d__label,.att3d__value,.statusbar__value,.topbar__connect-btn{
+  font-family:var(--font-display);
+}
+
+/* brand name */
+.topbar__logo-text{
+  font-size:15px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;
+  background:linear-gradient(90deg,#0a7cff,#00c8ff);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+}
+.topbar__subtitle{font-family:var(--font-ui);font-size:15px;letter-spacing:.08em}
+.dashboard__title{letter-spacing:.12em;text-transform:uppercase;font-size:22px}
+.card__title{letter-spacing:.16em;text-transform:uppercase}
+
+/* logo */
+.topbar__logo{gap:12px}
+.topbar__logo img{width:40px;height:auto;max-height:36px;object-fit:contain;border-radius:0}
+
+/* neon line under top bar */
+.topbar{box-shadow:0 1px 0 rgba(0,170,255,.45),0 4px 18px rgba(0,140,255,.12)}

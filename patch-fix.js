@@ -27,10 +27,15 @@ for (const f of files) {
     if (k > 0) { s = s.slice(0, k + 2) + RTK + s.slice(k + 2); log.push("RTK list restored"); }
   }
 
-  // 3. Home icon in top bar
+  // 3. Home icon in top bar (works whether Discord/Cart links are still there or already removed)
   const h0 = s.indexOf('s.jsx("a",{className:"topbar__icon-btn",href:t.language==="zh"?"https://micoair.cn"');
-  const h1 = s.indexOf('s.jsx("a",{className:"topbar__icon-btn",href:"https://discord.com', h0);
-  if (h0 > 0 && h1 > h0 && h1 - h0 < 1200) { s = s.slice(0, h0) + s.slice(h1); log.push("home removed"); }
+  if (h0 > 0) {
+    const ends = [
+      s.indexOf('s.jsx("a",{className:"topbar__icon-btn",href:"https://discord.com', h0),
+      s.indexOf('s.jsxs("div",{className:"topbar__lang-wrapper"', h0),
+    ].filter((x) => x > h0 && x - h0 < 1200);
+    if (ends.length) { s = s.slice(0, h0) + s.slice(Math.min(...ends)); log.push("home removed"); }
+  }
 
   fs.writeFileSync(f, s, "latin1");
   console.log(f, "->", log.length ? log.join(", ") : "already OK");
