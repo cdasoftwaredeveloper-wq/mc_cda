@@ -27,6 +27,7 @@ function proxy(req, res, host, targetPath) {
     }
     const h = { ...r.headers };
     delete h["content-security-policy"];
+    delete h["x-frame-options"];
     h["access-control-allow-origin"] = "*";
     res.writeHead(r.statusCode, h);
     r.pipe(res);
@@ -44,6 +45,10 @@ http.createServer((req, res) => {
   }
   if (p.startsWith("/micoair-firmware-proxy/")) {
     return proxy(req, res, "micoair.com", p.replace("/micoair-firmware-proxy", "") + u.search);
+  }
+
+  if (p === "/digital-sky-map" || p.startsWith("/digital-sky-map/")) {
+    return proxy(req, res, "digitalsky.aai.aero", p + u.search);
   }
 
   if (p === "/") p = "/index.html";
@@ -64,6 +69,9 @@ http.createServer((req, res) => {
     }
     if (p.startsWith("/configurator/firmware/")) {
       return proxy(req, res, "micoair.com", p + u.search);
+    }
+    if (/^\/(assets|static|_next|api|geoserver|images|fonts)\//.test(p) || /\.(js|css|map|png|svg|woff2?|json)$/.test(p)) {
+      return proxy(req, res, "digitalsky.aai.aero", p + u.search);
     }
     res.writeHead(404); res.end("Not found");
   });
