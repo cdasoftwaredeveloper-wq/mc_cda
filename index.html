@@ -7,6 +7,291 @@
   <link rel="icon" type="image/png" href="/configurator/logo.png">
   <title>Chennai Drone Academy</title>
   <link rel="stylesheet" href="./index-YVIssmX7.css">
+  <style id="cda-glass">
+/* ==========================================================
+   Chennai Drone Academy - GLASSY DASHBOARD v3
+   Blurred bokeh room + dark smoky glass + white text +
+   green-glow connect pill + cyan HUD.  Same look in light/dark.
+   ========================================================== */
+
+:root,[data-theme=light],[data-theme=dark]{
+  --glass-blur: 22px;
+  --glass-sat: 140%;
+  --glass-radius: 24px;
+  --glass-radius-sm: 16px;
+  --glass-ease: cubic-bezier(.22,.8,.3,1);
+
+  --glass-shell: rgba(38,34,31,.42);
+  --glass-panel: rgba(255,255,255,.15);
+  --glass-bg: rgba(66,68,76,.34);
+  --glass-bg-strong: rgba(60,62,70,.55);
+  --glass-tile: rgba(255,255,255,.14);
+  --glass-tile-hover: rgba(255,255,255,.27);
+  --glass-border: rgba(255,255,255,.34);
+  --glass-edge: rgba(255,255,255,.7);
+  --glass-shadow: 0 16px 44px rgba(20,12,6,.38), 0 2px 8px rgba(20,12,6,.2);
+  --glass-shadow-hover: 0 24px 58px rgba(20,12,6,.5), 0 4px 12px rgba(20,12,6,.26);
+  --glass-hilite: inset 0 1px 0 rgba(255,255,255,.38), inset 0 -1px 0 rgba(255,255,255,.06);
+  --glass-text: #ffffff;
+  --glass-text-dim: rgba(255,255,255,.72);
+  --cyan: #4fd0ff;
+  --green-a: #2fe0a3;
+  --green-b: #0c9a6e;
+
+  --bg-primary:#2b2622; --bg-secondary:#332d28; --bg-tertiary:#3d3630; --bg-hover:#4a423a;
+  --text-primary:#ffffff; --text-secondary:rgba(255,255,255,.72); --text-disabled:rgba(255,255,255,.45);
+  --border:rgba(255,255,255,.14); --border-hover:rgba(255,255,255,.28);
+  --att3d-canvas-bg:linear-gradient(180deg,rgba(215,225,235,.34) 0%,rgba(80,90,105,.38) 100%);
+}
+
+/* ---------- SCENE: blurred bokeh room ---------- */
+body{
+  background:linear-gradient(180deg,#cdbfae 0%,#b19a82 40%,#8a6c52 72%,#4b3727 100%) fixed;
+}
+body::before{              /* window light bars + bokeh blobs, pre-blurred */
+  content:"";position:fixed;inset:-80px;z-index:0;pointer-events:none;filter:blur(46px);
+  background:
+    linear-gradient(90deg,
+      transparent 0 6%, rgba(255,250,240,.75) 6% 10%, transparent 10% 22%,
+      rgba(255,244,228,.65) 22% 27%, transparent 27% 44%,
+      rgba(255,250,240,.8) 44% 50%, transparent 50% 63%,
+      rgba(255,244,228,.65) 63% 68%, transparent 68% 82%,
+      rgba(255,250,240,.75) 82% 87%, transparent 87%) 0 0/100% 46% no-repeat,
+    radial-gradient(circle at 12% 82%, rgba(50,32,22,.75) 0 14%, transparent 15%),
+    radial-gradient(circle at 34% 62%, rgba(255,170,90,.55) 0 9%, transparent 10%),
+    radial-gradient(circle at 58% 70%, rgba(110,130,140,.5) 0 12%, transparent 13%),
+    radial-gradient(circle at 80% 58%, rgba(255,210,150,.55) 0 10%, transparent 11%),
+    radial-gradient(circle at 92% 86%, rgba(70,45,30,.65) 0 13%, transparent 14%),
+    radial-gradient(circle at 48% 92%, rgba(255,190,120,.4) 0 9%, transparent 10%);
+}
+body::after{               /* slow drifting warm glow */
+  content:"";position:fixed;z-index:0;pointer-events:none;border-radius:50%;filter:blur(70px);
+  width:34vw;height:34vw;right:-4vw;top:26vh;will-change:transform;
+  background:radial-gradient(circle,rgba(255,190,130,.4),transparent 65%);
+  animation:cdaFloatB 34s ease-in-out infinite alternate;
+}
+@keyframes cdaFloatB{to{transform:translate3d(-9vw,8vh,0) scale(1.12)}}
+
+#root{position:relative;z-index:1}
+.app{background:transparent}
+.app__main:has(.dashboard){background:transparent;padding:0 14px 14px}
+
+/* ---------- SHELL ---------- */
+.topbar,.sidebar,.statusbar,.telemetry-bar{
+  background:var(--glass-shell);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  border-color:var(--glass-border);
+  box-shadow:var(--glass-hilite);
+  color:var(--glass-text);
+}
+.topbar{border-bottom:1px solid var(--glass-border);box-shadow:var(--glass-hilite),0 8px 26px rgba(20,12,6,.25)}
+.sidebar{border-right:1px solid var(--glass-border)}
+.statusbar{border-top:1px solid var(--glass-border)}
+.statusbar,.statusbar__label,.statusbar__value,.statusbar__item{color:var(--glass-text)}
+.telemetry-bar{border-bottom:1px solid var(--glass-border);background:rgba(34,30,28,.34)}
+
+.topbar__logo-text{
+  background:linear-gradient(90deg,#ffffff,#cfeaff);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;filter:drop-shadow(0 0 8px rgba(120,200,255,.35));
+}
+.topbar__subtitle .cda-tag{background:none;-webkit-text-fill-color:var(--cyan);color:var(--cyan);text-shadow:0 0 12px rgba(79,208,255,.45)}
+.topbar__subtitle .cda-sub{color:var(--glass-text-dim)}
+
+.sidebar__item{border-radius:var(--glass-radius-sm);border:1px solid transparent;transition:all .25s var(--glass-ease)}
+.sidebar__item:hover{background:var(--glass-tile-hover);transform:translateY(-1px)}
+.sidebar__item--active,.sidebar__item--active:hover{
+  background:rgba(255,255,255,.22);color:#fff;border-color:rgba(255,255,255,.55);
+  box-shadow:var(--glass-hilite),0 6px 18px rgba(0,0,0,.25),0 0 16px rgba(120,200,255,.25);
+}
+.sidebar__item--active:before{background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+
+.topbar__icon-btn{border-radius:14px;color:var(--glass-text);transition:all .25s var(--glass-ease)}
+.topbar__icon-btn:hover{background:var(--glass-tile-hover);transform:translateY(-1px)}
+.topbar__connect-btn{
+  border-radius:999px;color:#9dffcb;
+  background:rgba(18,28,22,.55);border:1px solid rgba(80,255,160,.6);
+  box-shadow:var(--glass-hilite),0 0 18px rgba(60,255,150,.3);
+  transition:all .25s var(--glass-ease);
+}
+.topbar__connect-btn:hover{transform:translateY(-1px);box-shadow:var(--glass-hilite),0 0 26px rgba(60,255,150,.5)}
+
+/* ---------- DASHBOARD: big frosted panel ---------- */
+.dashboard{
+  padding:var(--space-6);
+  background:var(--glass-panel);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  border:1.5px solid rgba(255,255,255,.55);
+  border-radius:30px;
+  box-shadow:var(--glass-shadow),var(--glass-hilite),0 0 0 1px rgba(255,255,255,.12);
+  margin-top:14px;height:calc(100% - 14px);
+}
+.dashboard__layout,.dashboard__layout-bottom,.dashboard__layout-full{gap:var(--space-5)}
+.dashboard__title{
+  color:#fff;background:none;-webkit-text-fill-color:currentColor;
+  filter:none;text-shadow:0 0 14px rgba(255,255,255,.35);
+}
+
+/* glass cards */
+.dashboard .att3d,.dashboard .hud,.dashboard .sensor-card,
+.dashboard .channels-card,.dashboard .qd-card,.dashboard .map-card{
+  position:relative;
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  border:1px solid var(--glass-border);
+  border-radius:var(--glass-radius);
+  box-shadow:var(--glass-shadow),var(--glass-hilite);
+  color:var(--glass-text);
+  transition:transform .35s var(--glass-ease),box-shadow .35s var(--glass-ease),border-color .35s var(--glass-ease);
+}
+.dashboard .att3d::before,.dashboard .sensor-card::before,.dashboard .channels-card::before,
+.dashboard .qd-card::before,.dashboard .map-card::before{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;z-index:2;
+  background:linear-gradient(135deg,rgba(255,255,255,.2) 0%,rgba(255,255,255,0) 38%);
+}
+.dashboard .att3d:hover,.dashboard .hud:hover,.dashboard .sensor-card:hover,
+.dashboard .channels-card:hover,.dashboard .qd-card:hover,.dashboard .map-card:hover{
+  transform:translateY(-5px);box-shadow:var(--glass-shadow-hover),var(--glass-hilite);border-color:var(--glass-edge);
+}
+
+/* 3D drone + roll/pitch/yaw */
+.dashboard .att3d__data{background:rgba(255,255,255,.1);border-top:1px solid var(--glass-border)}
+.dashboard .att3d__item{
+  background:var(--glass-tile);border:1px solid var(--glass-border);
+  border-radius:var(--glass-radius-sm);box-shadow:var(--glass-hilite);
+}
+.dashboard .att3d__label{color:var(--glass-text-dim)}
+.dashboard .att3d__value{color:#fff}
+
+/* HUD: smoky teal glass with cyan lines */
+.dashboard .hud{overflow:hidden}
+.dashboard .hud__canvas{border-radius:inherit;opacity:.78;filter:saturate(.55) brightness(.92)}
+
+/* sensors */
+.dashboard .sensor-card__header{background:transparent;border-bottom:1px solid var(--glass-border)}
+.dashboard .sensor-card__title{color:#fff;letter-spacing:.1em}
+.dashboard .sensor-tile{
+  background:var(--glass-tile);border:1px solid var(--glass-border);
+  border-radius:var(--glass-radius-sm);
+  box-shadow:var(--glass-hilite),0 6px 16px rgba(20,12,6,.18);
+  transition:transform .3s var(--glass-ease),background .3s var(--glass-ease),box-shadow .3s var(--glass-ease);
+}
+.dashboard .sensor-tile:hover{
+  background:var(--glass-tile-hover);transform:translateY(-4px);
+  box-shadow:var(--glass-hilite),0 14px 28px rgba(20,12,6,.32);
+}
+.dashboard .sensor-tile__label,.dashboard .sensor-tile__icon{color:#fff}
+.dashboard .sensor-tile--absent .sensor-tile__label,
+.dashboard .sensor-tile--absent .sensor-tile__icon{color:rgba(255,255,255,.85)}
+.dashboard .sensor-tile--healthy{
+  background:linear-gradient(135deg,rgba(47,224,163,.75),rgba(12,154,110,.75));
+  border-color:rgba(255,255,255,.5);
+  box-shadow:0 10px 24px rgba(12,154,110,.4),var(--glass-hilite);
+}
+.dashboard .sensor-tile--unhealthy{
+  background:linear-gradient(135deg,rgba(240,112,92,.75),rgba(194,54,42,.75));
+  border-color:rgba(255,255,255,.45);
+  box-shadow:0 10px 24px rgba(194,54,42,.38),var(--glass-hilite);
+}
+.dashboard .sensor-tile--healthy .sensor-tile__label,.dashboard .sensor-tile--healthy .sensor-tile__icon,
+.dashboard .sensor-tile--unhealthy .sensor-tile__label,.dashboard .sensor-tile--unhealthy .sensor-tile__icon{color:#fff}
+
+/* quick data + channels */
+.dashboard .qd__item{
+  background:var(--glass-tile);border:1px solid var(--glass-border);
+  border-radius:var(--glass-radius-sm);box-shadow:var(--glass-hilite);
+  transition:transform .3s var(--glass-ease),background .3s var(--glass-ease);
+}
+.dashboard .qd__item--clickable:hover{background:var(--glass-tile-hover);transform:translateY(-3px)}
+.dashboard .qd__label,.dashboard .channels__label{color:var(--glass-text-dim)}
+.dashboard .qd__value,.dashboard .channels__value{color:#fff}
+.dashboard .channels__bar-container{
+  background:var(--glass-tile);border:1px solid var(--glass-border);border-radius:999px;overflow:hidden;
+}
+.dashboard .channels__bar-fill{
+  background:linear-gradient(90deg,#1fb7ff,var(--cyan));border-radius:999px;
+  box-shadow:0 0 12px rgba(79,208,255,.6);
+}
+
+/* map + popup */
+.dashboard .map-card__coords{
+  background:var(--glass-bg-strong);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border:1px solid var(--glass-border);border-radius:10px;color:#fff;
+}
+.qd-picker{
+  background:var(--glass-bg-strong);color:#fff;
+  -webkit-backdrop-filter:blur(28px) saturate(var(--glass-sat));backdrop-filter:blur(28px) saturate(var(--glass-sat));
+  border:1px solid var(--glass-border);border-radius:var(--glass-radius);box-shadow:var(--glass-shadow-hover);
+}
+
+/* ---------- FALLBACKS ---------- */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  :root,[data-theme=light],[data-theme=dark]{
+    --glass-shell:rgba(38,34,31,.9);--glass-bg:rgba(70,70,78,.85);--glass-bg-strong:rgba(60,62,70,.92);--glass-panel:rgba(120,110,100,.6)
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  body::after{animation:none}
+  .dashboard .att3d:hover,.dashboard .hud:hover,.dashboard .sensor-card:hover,
+  .dashboard .channels-card:hover,.dashboard .qd-card:hover,.dashboard .map-card:hover,
+  .dashboard .sensor-tile:hover{transform:none}
+}
+@media (max-width:1100px){:root,[data-theme=light],[data-theme=dark]{--glass-blur:14px}}
+
+/* ==========================================================
+   v3.1 - closer match to the reference screenshot
+   ========================================================== */
+:root,[data-theme=light],[data-theme=dark]{
+  --glass-shell: rgba(78,64,66,.36);
+  --glass-panel: rgba(255,255,255,.2);
+  --glass-bg: rgba(205,208,218,.27);
+  --glass-bg-strong: rgba(175,180,194,.52);
+  --glass-tile: rgba(255,255,255,.2);
+  --glass-tile-hover: rgba(255,255,255,.36);
+  --glass-border: rgba(255,255,255,.42);
+  --att3d-canvas-bg: linear-gradient(180deg,rgba(255,255,255,.42) 0%,rgba(190,195,206,.26) 100%);
+}
+/* warmer, pinker bokeh room */
+body{background:linear-gradient(180deg,#c3a1a3 0%,#b8977f 32%,#9a7658 66%,#5a4030 100%) fixed}
+body::before{
+  background:
+    radial-gradient(circle at 6% 6%, rgba(214,140,165,.7) 0 17%, transparent 18%),
+    radial-gradient(circle at 30% 10%, rgba(200,150,150,.5) 0 12%, transparent 13%),
+    radial-gradient(circle at 96% 20%, rgba(255,226,190,.8) 0 14%, transparent 15%),
+    linear-gradient(90deg,
+      transparent 0 6%, rgba(255,246,236,.7) 6% 10%, transparent 10% 22%,
+      rgba(255,240,228,.6) 22% 27%, transparent 27% 44%,
+      rgba(255,246,236,.75) 44% 50%, transparent 50% 63%,
+      rgba(255,240,228,.6) 63% 68%, transparent 68% 82%,
+      rgba(255,246,236,.7) 82% 87%, transparent 87%) 0 0/100% 46% no-repeat,
+    radial-gradient(circle at 12% 82%, rgba(60,36,26,.7) 0 14%, transparent 15%),
+    radial-gradient(circle at 34% 62%, rgba(255,160,80,.6) 0 9%, transparent 10%),
+    radial-gradient(circle at 58% 70%, rgba(120,120,135,.45) 0 12%, transparent 13%),
+    radial-gradient(circle at 80% 58%, rgba(255,200,140,.6) 0 10%, transparent 11%),
+    radial-gradient(circle at 92% 86%, rgba(80,50,34,.6) 0 13%, transparent 14%);
+}
+/* sidebar: almost no panel, active item = dark smoky tile */
+.sidebar{background:rgba(255,255,255,.04)}
+.sidebar__item--active,.sidebar__item--active:hover{
+  background:rgba(36,38,48,.62);border-color:rgba(255,255,255,.2);
+  box-shadow:var(--glass-hilite),0 8px 20px rgba(0,0,0,.3);
+}
+/* connect pill: dark teal glass, white text */
+.topbar__connect-btn{
+  color:#fff;background:rgba(24,44,56,.62);border:1px solid rgba(140,210,230,.5);
+  box-shadow:var(--glass-hilite),0 6px 18px rgba(0,0,0,.25);
+}
+.topbar__connect-btn:hover{box-shadow:var(--glass-hilite),0 0 22px rgba(120,210,235,.4)}
+/* HUD: bluish steel glass like the reference */
+.dashboard .hud{background:rgba(64,104,140,.42)}
+.dashboard .hud__canvas{opacity:.62;filter:saturate(.5) brightness(.95)}
+/* roll/pitch/yaw + tiles: softer, bigger frost */
+.dashboard .att3d__data{background:rgba(255,255,255,.16)}
+.dashboard .sensor-tile{border-radius:18px}
+
+  </style>
 </head>
 <body>
   <div id="root"></div>

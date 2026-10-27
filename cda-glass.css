@@ -1,0 +1,252 @@
+/* ==========================================================
+   Chennai Drone Academy - GLASSY DASHBOARD (v1)
+   Load AFTER index-*.css and cda-theme.css.
+   Works in light + dark theme. Remove the <link> in index.html
+   to go back to the old look instantly.
+   ========================================================== */
+
+:root{
+  --glass-blur: 18px;
+  --glass-sat: 170%;
+  --glass-radius: 20px;
+  --glass-radius-sm: 14px;
+  --glass-ease: cubic-bezier(.22,.8,.3,1);
+
+  /* LIGHT (default) */
+  --glass-bg: rgba(255,255,255,.34);
+  --glass-bg-strong: rgba(255,255,255,.5);
+  --glass-tile: rgba(255,255,255,.42);
+  --glass-tile-hover: rgba(255,255,255,.68);
+  --glass-border: rgba(255,255,255,.7);
+  --glass-edge: rgba(10,124,255,.14);
+  --glass-shadow: 0 10px 34px rgba(20,70,140,.16), 0 2px 6px rgba(20,70,140,.08);
+  --glass-shadow-hover: 0 18px 46px rgba(20,90,180,.26), 0 4px 10px rgba(20,70,140,.12);
+  --glass-hilite: inset 0 1px 0 rgba(255,255,255,.85), inset 0 -1px 0 rgba(255,255,255,.2);
+  --glass-text: #0d2a4d;
+  --glass-text-dim: #4a6a8f;
+  --scene-a: #d7ecff;
+  --scene-b: #a9d3ff;
+  --scene-c: #e9f5ff;
+  --orb-1: rgba(0,170,255,.55);
+  --orb-2: rgba(120,100,255,.38);
+  --orb-3: rgba(0,229,200,.38);
+  --orb-4: rgba(255,170,120,.35);
+}
+
+[data-theme=dark], :root:not([data-theme=light]):not([data-theme=dark]){
+  --glass-bg: rgba(255,255,255,.07);
+  --glass-bg-strong: rgba(255,255,255,.11);
+  --glass-tile: rgba(255,255,255,.06);
+  --glass-tile-hover: rgba(255,255,255,.14);
+  --glass-border: rgba(255,255,255,.16);
+  --glass-edge: rgba(80,170,255,.2);
+  --glass-shadow: 0 10px 34px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.3);
+  --glass-shadow-hover: 0 18px 46px rgba(0,120,255,.28), 0 4px 10px rgba(0,0,0,.4);
+  --glass-hilite: inset 0 1px 0 rgba(255,255,255,.16), inset 0 -1px 0 rgba(255,255,255,.03);
+  --glass-text: #eef4ff;
+  --glass-text-dim: #9db3d3;
+  --scene-a: #050a16;
+  --scene-b: #0a1b3d;
+  --scene-c: #07121f;
+  --orb-1: rgba(0,140,255,.5);
+  --orb-2: rgba(130,90,255,.4);
+  --orb-3: rgba(0,220,190,.3);
+  --orb-4: rgba(255,120,90,.22);
+}
+
+/* ---------- SCENE (background behind the glass) ---------- */
+body{
+  background:
+    radial-gradient(1200px 700px at 10% 0%, var(--scene-c), transparent 60%),
+    linear-gradient(160deg, var(--scene-a) 0%, var(--scene-b) 55%, var(--scene-c) 100%) fixed;
+}
+body::before,body::after{
+  content:"";position:fixed;z-index:0;pointer-events:none;border-radius:50%;
+  filter:blur(70px);will-change:transform;
+}
+body::before{
+  width:46vw;height:46vw;left:-8vw;top:-10vw;
+  background:radial-gradient(circle at 35% 35%, var(--orb-1), transparent 65%),
+             radial-gradient(circle at 75% 70%, var(--orb-3), transparent 60%);
+  animation:cdaFloatA 26s ease-in-out infinite alternate;
+}
+body::after{
+  width:42vw;height:42vw;right:-10vw;bottom:-12vw;
+  background:radial-gradient(circle at 40% 40%, var(--orb-2), transparent 65%),
+             radial-gradient(circle at 70% 75%, var(--orb-4), transparent 60%);
+  animation:cdaFloatB 32s ease-in-out infinite alternate;
+}
+@keyframes cdaFloatA{to{transform:translate3d(10vw,8vh,0) scale(1.12)}}
+@keyframes cdaFloatB{to{transform:translate3d(-9vw,-7vh,0) scale(1.1)}}
+
+#root{position:relative;z-index:1}
+.app{background:transparent}
+.app__main:has(.dashboard){background:transparent}
+
+/* ---------- SHELL: topbar / sidebar / telemetry / statusbar ---------- */
+.topbar,.sidebar,.statusbar,.telemetry-bar{
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  border-color:var(--glass-border);
+  box-shadow:var(--glass-hilite);
+}
+.topbar{border-bottom:1px solid var(--glass-border);box-shadow:var(--glass-hilite),0 6px 24px rgba(0,140,255,.12)}
+.sidebar{border-right:1px solid var(--glass-border)}
+.statusbar{border-top:1px solid var(--glass-border)}
+.telemetry-bar{border-bottom:1px solid var(--glass-border);background:var(--glass-bg-strong)}
+
+.sidebar__item{border-radius:var(--glass-radius-sm);transition:all .25s var(--glass-ease)}
+.sidebar__item:hover{background:var(--glass-tile-hover);transform:translateY(-1px)}
+.sidebar__item--active{
+  background:var(--glass-bg-strong);
+  box-shadow:var(--glass-hilite),0 6px 18px rgba(0,140,255,.28);
+  border:1px solid var(--glass-border);
+}
+.topbar__icon-btn{border-radius:12px;transition:all .25s var(--glass-ease)}
+.topbar__icon-btn:hover{background:var(--glass-tile-hover);transform:translateY(-1px)}
+.topbar__connect-btn{
+  border-radius:999px;
+  background:var(--glass-bg-strong);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-hilite),0 4px 14px rgba(0,140,255,.18);
+  transition:all .25s var(--glass-ease);
+}
+.topbar__connect-btn:hover{transform:translateY(-1px);box-shadow:var(--glass-hilite),0 8px 22px rgba(0,140,255,.32)}
+
+/* ---------- DASHBOARD ---------- */
+.dashboard{padding:var(--space-6)}
+.dashboard__layout,.dashboard__layout-bottom,.dashboard__layout-full{gap:var(--space-5)}
+.dashboard__title{
+  background:linear-gradient(90deg,#0a7cff,#00c8ff 60%,#7a6bff);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  filter:drop-shadow(0 2px 10px rgba(0,140,255,.25));
+}
+
+/* glass cards */
+.dashboard .att3d,
+.dashboard .hud,
+.dashboard .sensor-card,
+.dashboard .channels-card,
+.dashboard .qd-card,
+.dashboard .map-card{
+  position:relative;
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  border:1px solid var(--glass-border);
+  border-radius:var(--glass-radius);
+  box-shadow:var(--glass-shadow),var(--glass-hilite);
+  transition:transform .35s var(--glass-ease),box-shadow .35s var(--glass-ease),border-color .35s var(--glass-ease);
+}
+/* soft light sweep on the top-left, like real glass */
+.dashboard .att3d::before,
+.dashboard .sensor-card::before,
+.dashboard .channels-card::before,
+.dashboard .qd-card::before,
+.dashboard .map-card::before{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;z-index:2;
+  background:linear-gradient(135deg,rgba(255,255,255,.16) 0%,rgba(255,255,255,0) 36%);
+}
+.dashboard .att3d:hover,
+.dashboard .hud:hover,
+.dashboard .sensor-card:hover,
+.dashboard .channels-card:hover,
+.dashboard .qd-card:hover,
+.dashboard .map-card:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--glass-shadow-hover),var(--glass-hilite);
+  border-color:var(--glass-edge);
+}
+
+/* 3D drone + HUD: keep the canvases, but let them blend with the glass */
+.dashboard .att3d__data{background:var(--glass-bg);border-top:1px solid var(--glass-border)}
+.dashboard .att3d__item{
+  background:var(--glass-tile);
+  border:1px solid var(--glass-border);
+  border-radius:var(--glass-radius-sm);
+  box-shadow:var(--glass-hilite);
+}
+.dashboard .att3d__label{color:var(--glass-text-dim)}
+.dashboard .att3d__value{color:var(--glass-text)}
+.dashboard .hud{padding:0;overflow:hidden}
+.dashboard .hud__canvas{border-radius:inherit}
+
+/* sensors */
+.dashboard .sensor-card__header{
+  background:transparent;border-bottom:1px solid var(--glass-border);
+  color:var(--glass-text);
+}
+.dashboard .sensor-card__title{color:var(--glass-text);letter-spacing:.08em}
+.dashboard .sensor-tile{
+  background:var(--glass-tile);
+  border:1px solid var(--glass-border);
+  border-radius:var(--glass-radius-sm);
+  box-shadow:var(--glass-hilite),0 4px 14px rgba(20,70,140,.08);
+  transition:transform .3s var(--glass-ease),background .3s var(--glass-ease),box-shadow .3s var(--glass-ease);
+}
+.dashboard .sensor-tile--clickable:hover,
+.dashboard .sensor-tile:hover{
+  background:var(--glass-tile-hover);
+  transform:translateY(-4px);
+  box-shadow:var(--glass-hilite),0 12px 26px rgba(0,140,255,.22);
+}
+.dashboard .sensor-tile--healthy{
+  border-color:color-mix(in srgb,var(--success) 45%,transparent);
+  box-shadow:var(--glass-hilite),0 0 18px color-mix(in srgb,var(--success) 22%,transparent);
+}
+.dashboard .sensor-tile--unhealthy{
+  border-color:color-mix(in srgb,var(--danger) 45%,transparent);
+  box-shadow:var(--glass-hilite),0 0 18px color-mix(in srgb,var(--danger) 22%,transparent);
+}
+
+/* quick-data + channels */
+.dashboard .qd__item{
+  background:var(--glass-tile);
+  border:1px solid var(--glass-border);
+  border-radius:var(--glass-radius-sm);
+  box-shadow:var(--glass-hilite);
+  transition:transform .3s var(--glass-ease),background .3s var(--glass-ease);
+}
+.dashboard .qd__item--clickable:hover{background:var(--glass-tile-hover);transform:translateY(-3px)}
+.dashboard .qd__label,.dashboard .channels__label{color:var(--glass-text-dim)}
+.dashboard .qd__value,.dashboard .channels__value{color:var(--glass-text)}
+.dashboard .channels__bar-container{
+  background:var(--glass-tile);border:1px solid var(--glass-border);border-radius:999px;overflow:hidden;
+}
+.dashboard .channels__bar-fill{
+  background:linear-gradient(90deg,#0a7cff,#00e5ff);
+  box-shadow:0 0 12px rgba(0,200,255,.55);border-radius:999px;
+}
+
+/* map */
+.dashboard .map-card__coords{
+  background:var(--glass-bg-strong);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border:1px solid var(--glass-border);border-radius:10px;
+}
+
+/* quick-data picker popup */
+.qd-picker{
+  background:var(--glass-bg-strong);
+  -webkit-backdrop-filter:blur(26px) saturate(var(--glass-sat));
+  backdrop-filter:blur(26px) saturate(var(--glass-sat));
+  border:1px solid var(--glass-border);
+  border-radius:var(--glass-radius);
+  box-shadow:var(--glass-shadow-hover);
+}
+
+/* ---------- FALLBACKS ---------- */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  :root{--glass-bg:rgba(255,255,255,.82);--glass-bg-strong:rgba(255,255,255,.92)}
+  [data-theme=dark]{--glass-bg:rgba(20,30,52,.92);--glass-bg-strong:rgba(26,38,64,.96)}
+}
+@media (prefers-reduced-motion:reduce){
+  body::before,body::after{animation:none}
+  .dashboard .att3d:hover,.dashboard .hud:hover,.dashboard .sensor-card:hover,
+  .dashboard .channels-card:hover,.dashboard .qd-card:hover,.dashboard .map-card:hover,
+  .dashboard .sensor-tile:hover{transform:none}
+}
+/* small laptops: slightly lighter blur = smoother 3D/HUD */
+@media (max-width:1100px){:root{--glass-blur:12px}}
