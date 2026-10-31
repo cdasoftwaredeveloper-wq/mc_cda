@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +8,12 @@
   <link rel="stylesheet" href="./index-YVIssmX7.css">
   <style id="cda-glass">
 /* ==========================================================
-   Chennai Drone Academy - GLASSY DASHBOARD v3
-   Blurred bokeh room + dark smoky glass + white text +
-   green-glow connect pill + cyan HUD.  Same look in light/dark.
+   Chennai Drone Academy - GLASSY UI (consolidated)
+   Bokeh room scene + frosted glass panels + bright text.
+   Same look in light/dark.
    ========================================================== */
 
+/* ---------- TOKENS ---------- */
 :root,[data-theme=light],[data-theme=dark]{
   --glass-blur: 22px;
   --glass-sat: 140%;
@@ -21,50 +21,56 @@
   --glass-radius-sm: 16px;
   --glass-ease: cubic-bezier(.22,.8,.3,1);
 
-  --glass-shell: rgba(38,34,31,.42);
-  --glass-panel: rgba(255,255,255,.15);
-  --glass-bg: rgba(66,68,76,.34);
-  --glass-bg-strong: rgba(60,62,70,.55);
-  --glass-tile: rgba(255,255,255,.14);
-  --glass-tile-hover: rgba(255,255,255,.27);
-  --glass-border: rgba(255,255,255,.34);
+  --glass-shell: rgba(78,64,66,.36);
+  --glass-panel: rgba(255,255,255,.2);
+  --glass-bg: rgba(205,208,218,.27);
+  --glass-bg-strong: rgba(175,180,194,.52);
+  --glass-tile: rgba(255,255,255,.2);
+  --glass-tile-hover: rgba(255,255,255,.36);
+  --glass-border: rgba(255,255,255,.42);
   --glass-edge: rgba(255,255,255,.7);
   --glass-shadow: 0 16px 44px rgba(20,12,6,.38), 0 2px 8px rgba(20,12,6,.2);
   --glass-shadow-hover: 0 24px 58px rgba(20,12,6,.5), 0 4px 12px rgba(20,12,6,.26);
   --glass-hilite: inset 0 1px 0 rgba(255,255,255,.38), inset 0 -1px 0 rgba(255,255,255,.06);
   --glass-text: #ffffff;
-  --glass-text-dim: rgba(255,255,255,.72);
+  --glass-text-dim: #f2f6ff;
   --cyan: #4fd0ff;
   --green-a: #2fe0a3;
   --green-b: #0c9a6e;
 
   --bg-primary:#2b2622; --bg-secondary:#332d28; --bg-tertiary:#3d3630; --bg-hover:#4a423a;
-  --text-primary:#ffffff; --text-secondary:rgba(255,255,255,.72); --text-disabled:rgba(255,255,255,.45);
+  --text-primary:#ffffff;
+  --text-secondary:#f4f8ff;
+  --text-tertiary:#e6eefc;
+  --text-disabled:#d2deef;
   --border:rgba(255,255,255,.14); --border-hover:rgba(255,255,255,.28);
-  --att3d-canvas-bg:linear-gradient(180deg,rgba(215,225,235,.34) 0%,rgba(80,90,105,.38) 100%);
+  --att3d-canvas-bg:linear-gradient(180deg,rgba(255,255,255,.42) 0%,rgba(190,195,206,.26) 100%);
 }
 
 /* ---------- SCENE: blurred bokeh room ---------- */
 body{
-  background:linear-gradient(180deg,#cdbfae 0%,#b19a82 40%,#8a6c52 72%,#4b3727 100%) fixed;
+  background:linear-gradient(180deg,#c3a1a3 0%,#b8977f 32%,#9a7658 66%,#5a4030 100%) fixed;
+  color:#fff;
 }
-body::before{              /* window light bars + bokeh blobs, pre-blurred */
+body::before{
   content:"";position:fixed;inset:-80px;z-index:0;pointer-events:none;filter:blur(46px);
   background:
+    radial-gradient(circle at 6% 6%, rgba(214,140,165,.7) 0 17%, transparent 18%),
+    radial-gradient(circle at 30% 10%, rgba(200,150,150,.5) 0 12%, transparent 13%),
+    radial-gradient(circle at 96% 20%, rgba(255,226,190,.8) 0 14%, transparent 15%),
     linear-gradient(90deg,
-      transparent 0 6%, rgba(255,250,240,.75) 6% 10%, transparent 10% 22%,
-      rgba(255,244,228,.65) 22% 27%, transparent 27% 44%,
-      rgba(255,250,240,.8) 44% 50%, transparent 50% 63%,
-      rgba(255,244,228,.65) 63% 68%, transparent 68% 82%,
-      rgba(255,250,240,.75) 82% 87%, transparent 87%) 0 0/100% 46% no-repeat,
-    radial-gradient(circle at 12% 82%, rgba(50,32,22,.75) 0 14%, transparent 15%),
-    radial-gradient(circle at 34% 62%, rgba(255,170,90,.55) 0 9%, transparent 10%),
-    radial-gradient(circle at 58% 70%, rgba(110,130,140,.5) 0 12%, transparent 13%),
-    radial-gradient(circle at 80% 58%, rgba(255,210,150,.55) 0 10%, transparent 11%),
-    radial-gradient(circle at 92% 86%, rgba(70,45,30,.65) 0 13%, transparent 14%),
-    radial-gradient(circle at 48% 92%, rgba(255,190,120,.4) 0 9%, transparent 10%);
+      transparent 0 6%, rgba(255,246,236,.7) 6% 10%, transparent 10% 22%,
+      rgba(255,240,228,.6) 22% 27%, transparent 27% 44%,
+      rgba(255,246,236,.75) 44% 50%, transparent 50% 63%,
+      rgba(255,240,228,.6) 63% 68%, transparent 68% 82%,
+      rgba(255,246,236,.7) 82% 87%, transparent 87%) 0 0/100% 46% no-repeat,
+    radial-gradient(circle at 12% 82%, rgba(60,36,26,.7) 0 14%, transparent 15%),
+    radial-gradient(circle at 34% 62%, rgba(255,160,80,.6) 0 9%, transparent 10%),
+    radial-gradient(circle at 58% 70%, rgba(120,120,135,.45) 0 12%, transparent 13%),
+    radial-gradient(circle at 80% 58%, rgba(255,200,140,.6) 0 10%, transparent 11%),
+    radial-gradient(circle at 92% 86%, rgba(80,50,34,.6) 0 13%, transparent 14%);
 }
-body::after{               /* slow drifting warm glow */
+body::after{
   content:"";position:fixed;z-index:0;pointer-events:none;border-radius:50%;filter:blur(70px);
   width:34vw;height:34vw;right:-4vw;top:26vh;will-change:transform;
   background:radial-gradient(circle,rgba(255,190,130,.4),transparent 65%);
@@ -73,7 +79,7 @@ body::after{               /* slow drifting warm glow */
 @keyframes cdaFloatB{to{transform:translate3d(-9vw,8vh,0) scale(1.12)}}
 
 #root{position:relative;z-index:1}
-.app{background:transparent}
+.app{background:transparent;color:#fff}
 .app__main:has(.dashboard){background:transparent;padding:0 14px 14px}
 
 /* ---------- SHELL ---------- */
@@ -85,38 +91,63 @@ body::after{               /* slow drifting warm glow */
   box-shadow:var(--glass-hilite);
   color:var(--glass-text);
 }
+.topbar,.sidebar,.telemetry-bar,.statusbar,.app__main{text-shadow:0 1px 3px rgba(20,10,5,.45)}
 .topbar{border-bottom:1px solid var(--glass-border);box-shadow:var(--glass-hilite),0 8px 26px rgba(20,12,6,.25)}
-.sidebar{border-right:1px solid var(--glass-border)}
+.sidebar{background:rgba(255,255,255,.04);border-right:1px solid var(--glass-border)}
 .statusbar{border-top:1px solid var(--glass-border)}
-.statusbar,.statusbar__label,.statusbar__value,.statusbar__item{color:var(--glass-text)}
 .telemetry-bar{border-bottom:1px solid var(--glass-border);background:rgba(34,30,28,.34)}
 
 .topbar__logo-text{
   background:linear-gradient(90deg,#ffffff,#cfeaff);-webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;filter:drop-shadow(0 0 8px rgba(120,200,255,.35));
 }
-.topbar__subtitle .cda-tag{background:none;-webkit-text-fill-color:var(--cyan);color:var(--cyan);text-shadow:0 0 12px rgba(79,208,255,.45)}
-.topbar__subtitle .cda-sub{color:var(--glass-text-dim)}
+.topbar__subtitle .cda-tag{
+  background:none;color:#7fe3ff;-webkit-text-fill-color:#7fe3ff;
+  text-shadow:0 0 12px rgba(79,208,255,.7),0 1px 3px rgba(0,0,0,.4);
+}
+.topbar__subtitle .cda-sub{color:#fff;opacity:1;font-weight:600}
 
+/* sidebar */
+.sidebar__item,.sidebar__label,.sidebar__icon{color:#fff}
+.sidebar__label{font-size:11px;font-weight:700;letter-spacing:.02em}
 .sidebar__item{border-radius:var(--glass-radius-sm);border:1px solid transparent;transition:all .25s var(--glass-ease)}
-.sidebar__item:hover{background:var(--glass-tile-hover);transform:translateY(-1px)}
+.sidebar__item:hover{background:var(--glass-tile-hover);transform:translateY(-1px);color:#fff}
+.sidebar__item--active,.sidebar__item--active:hover,.sidebar__item--active .sidebar__label{color:#fff}
 .sidebar__item--active,.sidebar__item--active:hover{
-  background:rgba(255,255,255,.22);color:#fff;border-color:rgba(255,255,255,.55);
-  box-shadow:var(--glass-hilite),0 6px 18px rgba(0,0,0,.25),0 0 16px rgba(120,200,255,.25);
+  background:rgba(36,38,48,.62);border-color:rgba(255,255,255,.2);
+  box-shadow:var(--glass-hilite),0 8px 20px rgba(0,0,0,.3);
 }
 .sidebar__item--active:before{background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
 
-.topbar__icon-btn{border-radius:14px;color:var(--glass-text);transition:all .25s var(--glass-ease)}
+/* topbar controls */
+.topbar,.topbar__icon-btn,.topbar__lang,.topbar__connect-btn{color:#fff}
+.topbar__icon-btn{border-radius:14px;transition:all .25s var(--glass-ease)}
 .topbar__icon-btn:hover{background:var(--glass-tile-hover);transform:translateY(-1px)}
 .topbar__connect-btn{
-  border-radius:999px;color:#9dffcb;
-  background:rgba(18,28,22,.55);border:1px solid rgba(80,255,160,.6);
-  box-shadow:var(--glass-hilite),0 0 18px rgba(60,255,150,.3);
+  border-radius:999px;color:#fff;
+  background:rgba(24,44,56,.62);border:1px solid rgba(140,210,230,.5);
+  box-shadow:var(--glass-hilite),0 6px 18px rgba(0,0,0,.25);
   transition:all .25s var(--glass-ease);
 }
-.topbar__connect-btn:hover{transform:translateY(-1px);box-shadow:var(--glass-hilite),0 0 26px rgba(60,255,150,.5)}
+.topbar__connect-btn:hover{transform:translateY(-1px);box-shadow:var(--glass-hilite),0 0 22px rgba(120,210,235,.4)}
 
-/* ---------- DASHBOARD: big frosted panel ---------- */
+/* telemetry bar (no offline fade) */
+.telemetry-bar--offline{opacity:1}
+.telemetry-bar,.telemetry-bar *{color:#fff}
+.telemetry-bar svg{stroke:#fff;opacity:1}
+.telemetry-bar{font-weight:700}
+.telemetry-bar [class*=setup-guide],.telemetry-bar button{color:#fff;font-weight:700}
+.setup-guide__badge--offline{color:#fff;background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.6)}
+.setup-guide__badge--pending{color:#fff}
+
+/* status bar */
+.statusbar,.statusbar *{color:#fff}
+.statusbar__label{color:#f0f5ff}
+.statusbar__value--disconnected{color:#fff}
+.statusbar__value--connected{color:#7dffc4}
+.statusbar__value--connecting{color:#ffe08a}
+
+/* ---------- DASHBOARD ---------- */
 .dashboard{
   padding:var(--space-6);
   background:var(--glass-panel);
@@ -129,8 +160,8 @@ body::after{               /* slow drifting warm glow */
 }
 .dashboard__layout,.dashboard__layout-bottom,.dashboard__layout-full{gap:var(--space-5)}
 .dashboard__title{
-  color:#fff;background:none;-webkit-text-fill-color:currentColor;
-  filter:none;text-shadow:0 0 14px rgba(255,255,255,.35);
+  color:#fff;background:none;-webkit-text-fill-color:currentColor;filter:none;
+  text-shadow:0 0 14px rgba(255,255,255,.5),0 2px 4px rgba(0,0,0,.3);
 }
 
 /* glass cards */
@@ -157,24 +188,27 @@ body::after{               /* slow drifting warm glow */
 }
 
 /* 3D drone + roll/pitch/yaw */
-.dashboard .att3d__data{background:rgba(255,255,255,.1);border-top:1px solid var(--glass-border)}
+.dashboard .att3d__data{background:rgba(255,255,255,.16);border-top:1px solid var(--glass-border)}
 .dashboard .att3d__item{
   background:var(--glass-tile);border:1px solid var(--glass-border);
   border-radius:var(--glass-radius-sm);box-shadow:var(--glass-hilite);
 }
-.dashboard .att3d__label{color:var(--glass-text-dim)}
-.dashboard .att3d__value{color:#fff}
+.dashboard .att3d__label{color:#3a2a38;font-weight:700;letter-spacing:.12em;text-shadow:0 1px 0 rgba(255,255,255,.6)}
+.dashboard .att3d__value{color:#0b1c33;font-weight:800;text-shadow:0 1px 0 rgba(255,255,255,.6)}
 
-/* HUD: smoky teal glass with cyan lines */
-.dashboard .hud{overflow:hidden}
-.dashboard .hud__canvas{border-radius:inherit;opacity:.78;filter:saturate(.55) brightness(.92)}
+/* HUD */
+.dashboard .hud{overflow:hidden;background:rgba(40,80,125,.5)}
+.dashboard .hud__canvas{
+  border-radius:inherit;opacity:1;
+  filter:saturate(1) brightness(1.55) contrast(1.15) drop-shadow(0 0 1px rgba(255,255,255,.6));
+}
 
 /* sensors */
 .dashboard .sensor-card__header{background:transparent;border-bottom:1px solid var(--glass-border)}
-.dashboard .sensor-card__title{color:#fff;letter-spacing:.1em}
+.dashboard .sensor-card__title{color:#fff;font-weight:800;letter-spacing:.1em;text-shadow:0 1px 3px rgba(0,0,0,.45)}
 .dashboard .sensor-tile{
   background:var(--glass-tile);border:1px solid var(--glass-border);
-  border-radius:var(--glass-radius-sm);
+  border-radius:18px;
   box-shadow:var(--glass-hilite),0 6px 16px rgba(20,12,6,.18);
   transition:transform .3s var(--glass-ease),background .3s var(--glass-ease),box-shadow .3s var(--glass-ease);
 }
@@ -182,9 +216,6 @@ body::after{               /* slow drifting warm glow */
   background:var(--glass-tile-hover);transform:translateY(-4px);
   box-shadow:var(--glass-hilite),0 14px 28px rgba(20,12,6,.32);
 }
-.dashboard .sensor-tile__label,.dashboard .sensor-tile__icon{color:#fff}
-.dashboard .sensor-tile--absent .sensor-tile__label,
-.dashboard .sensor-tile--absent .sensor-tile__icon{color:rgba(255,255,255,.85)}
 .dashboard .sensor-tile--healthy{
   background:linear-gradient(135deg,rgba(47,224,163,.75),rgba(12,154,110,.75));
   border-color:rgba(255,255,255,.5);
@@ -195,8 +226,31 @@ body::after{               /* slow drifting warm glow */
   border-color:rgba(255,255,255,.45);
   box-shadow:0 10px 24px rgba(194,54,42,.38),var(--glass-hilite);
 }
-.dashboard .sensor-tile--healthy .sensor-tile__label,.dashboard .sensor-tile--healthy .sensor-tile__icon,
-.dashboard .sensor-tile--unhealthy .sensor-tile__label,.dashboard .sensor-tile--unhealthy .sensor-tile__icon{color:#fff}
+.dashboard .sensor-tile .sensor-tile__label,
+.dashboard .sensor-tile--absent .sensor-tile__label{
+  color:#0b1c33;font-weight:800;font-size:13px;letter-spacing:.06em;text-shadow:0 1px 0 rgba(255,255,255,.65);
+}
+.dashboard .sensor-tile--healthy .sensor-tile__label,
+.dashboard .sensor-tile--unhealthy .sensor-tile__label{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.35)}
+
+/* sensor tile images: /configurator/sensors/<name>_<light|dark>.png
+   order: IMU, Compass, Barometer, GPS, Optical Flow, Rangefinder */
+.dashboard .sensor-tile__icon{
+  width:76px;height:76px;stroke:transparent;color:transparent;
+  background:center/contain no-repeat var(--sensor-img-light);
+  transition:transform .3s var(--glass-ease),filter .3s var(--glass-ease),opacity .3s var(--glass-ease);
+}
+[data-theme=dark] .dashboard .sensor-tile__icon{background-image:var(--sensor-img-dark)}
+.dashboard .sensor-tile:hover .sensor-tile__icon{transform:scale(1.08)}
+.dashboard .sensor-tile--absent .sensor-tile__icon{opacity:.7;filter:saturate(.75)}
+.dashboard .sensor-tile--healthy .sensor-tile__icon,
+.dashboard .sensor-tile--unhealthy .sensor-tile__icon{opacity:1;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
+.dashboard .sensor-card__grid>.sensor-tile:nth-child(1) .sensor-tile__icon{--sensor-img-light:url(/configurator/sensors/imu_light.png);--sensor-img-dark:url(/configurator/sensors/imu_dark.png)}
+.dashboard .sensor-card__grid>.sensor-tile:nth-child(2) .sensor-tile__icon{--sensor-img-light:url(/configurator/sensors/compass_light.png);--sensor-img-dark:url(/configurator/sensors/compass_dark.png)}
+.dashboard .sensor-card__grid>.sensor-tile:nth-child(3) .sensor-tile__icon{--sensor-img-light:url(/configurator/sensors/barometer_light.png);--sensor-img-dark:url(/configurator/sensors/barometer_dark.png)}
+.dashboard .sensor-card__grid>.sensor-tile:nth-child(4) .sensor-tile__icon{--sensor-img-light:url(/configurator/sensors/gps_light.png);--sensor-img-dark:url(/configurator/sensors/gps_dark.png)}
+.dashboard .sensor-card__grid>.sensor-tile:nth-child(5) .sensor-tile__icon{--sensor-img-light:url(/configurator/sensors/optical_flow_light.png);--sensor-img-dark:url(/configurator/sensors/optical_flow_dark.png)}
+.dashboard .sensor-card__grid>.sensor-tile:nth-child(6) .sensor-tile__icon{--sensor-img-light:url(/configurator/sensors/rangefinder_light.png);--sensor-img-dark:url(/configurator/sensors/rangefinder_dark.png)}
 
 /* quick data + channels */
 .dashboard .qd__item{
@@ -205,7 +259,7 @@ body::after{               /* slow drifting warm glow */
   transition:transform .3s var(--glass-ease),background .3s var(--glass-ease);
 }
 .dashboard .qd__item--clickable:hover{background:var(--glass-tile-hover);transform:translateY(-3px)}
-.dashboard .qd__label,.dashboard .channels__label{color:var(--glass-text-dim)}
+.dashboard .qd__label,.dashboard .channels__label,
 .dashboard .qd__value,.dashboard .channels__value{color:#fff}
 .dashboard .channels__bar-container{
   background:var(--glass-tile);border:1px solid var(--glass-border);border-radius:999px;overflow:hidden;
@@ -226,81 +280,11 @@ body::after{               /* slow drifting warm glow */
   border:1px solid var(--glass-border);border-radius:var(--glass-radius);box-shadow:var(--glass-shadow-hover);
 }
 
-/* ---------- FALLBACKS ---------- */
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  :root,[data-theme=light],[data-theme=dark]{
-    --glass-shell:rgba(38,34,31,.9);--glass-bg:rgba(70,70,78,.85);--glass-bg-strong:rgba(60,62,70,.92);--glass-panel:rgba(120,110,100,.6)
-  }
-}
-@media (prefers-reduced-motion:reduce){
-  body::after{animation:none}
-  .dashboard .att3d:hover,.dashboard .hud:hover,.dashboard .sensor-card:hover,
-  .dashboard .channels-card:hover,.dashboard .qd-card:hover,.dashboard .map-card:hover,
-  .dashboard .sensor-tile:hover{transform:none}
-}
-@media (max-width:1100px){:root,[data-theme=light],[data-theme=dark]{--glass-blur:14px}}
-
 /* ==========================================================
-   v3.1 - closer match to the reference screenshot
-   ========================================================== */
-:root,[data-theme=light],[data-theme=dark]{
-  --glass-shell: rgba(78,64,66,.36);
-  --glass-panel: rgba(255,255,255,.2);
-  --glass-bg: rgba(205,208,218,.27);
-  --glass-bg-strong: rgba(175,180,194,.52);
-  --glass-tile: rgba(255,255,255,.2);
-  --glass-tile-hover: rgba(255,255,255,.36);
-  --glass-border: rgba(255,255,255,.42);
-  --att3d-canvas-bg: linear-gradient(180deg,rgba(255,255,255,.42) 0%,rgba(190,195,206,.26) 100%);
-}
-/* warmer, pinker bokeh room */
-body{background:linear-gradient(180deg,#c3a1a3 0%,#b8977f 32%,#9a7658 66%,#5a4030 100%) fixed}
-body::before{
-  background:
-    radial-gradient(circle at 6% 6%, rgba(214,140,165,.7) 0 17%, transparent 18%),
-    radial-gradient(circle at 30% 10%, rgba(200,150,150,.5) 0 12%, transparent 13%),
-    radial-gradient(circle at 96% 20%, rgba(255,226,190,.8) 0 14%, transparent 15%),
-    linear-gradient(90deg,
-      transparent 0 6%, rgba(255,246,236,.7) 6% 10%, transparent 10% 22%,
-      rgba(255,240,228,.6) 22% 27%, transparent 27% 44%,
-      rgba(255,246,236,.75) 44% 50%, transparent 50% 63%,
-      rgba(255,240,228,.6) 63% 68%, transparent 68% 82%,
-      rgba(255,246,236,.7) 82% 87%, transparent 87%) 0 0/100% 46% no-repeat,
-    radial-gradient(circle at 12% 82%, rgba(60,36,26,.7) 0 14%, transparent 15%),
-    radial-gradient(circle at 34% 62%, rgba(255,160,80,.6) 0 9%, transparent 10%),
-    radial-gradient(circle at 58% 70%, rgba(120,120,135,.45) 0 12%, transparent 13%),
-    radial-gradient(circle at 80% 58%, rgba(255,200,140,.6) 0 10%, transparent 11%),
-    radial-gradient(circle at 92% 86%, rgba(80,50,34,.6) 0 13%, transparent 14%);
-}
-/* sidebar: almost no panel, active item = dark smoky tile */
-.sidebar{background:rgba(255,255,255,.04)}
-.sidebar__item--active,.sidebar__item--active:hover{
-  background:rgba(36,38,48,.62);border-color:rgba(255,255,255,.2);
-  box-shadow:var(--glass-hilite),0 8px 20px rgba(0,0,0,.3);
-}
-/* connect pill: dark teal glass, white text */
-.topbar__connect-btn{
-  color:#fff;background:rgba(24,44,56,.62);border:1px solid rgba(140,210,230,.5);
-  box-shadow:var(--glass-hilite),0 6px 18px rgba(0,0,0,.25);
-}
-.topbar__connect-btn:hover{box-shadow:var(--glass-hilite),0 0 22px rgba(120,210,235,.4)}
-/* HUD: bluish steel glass like the reference */
-.dashboard .hud{background:rgba(64,104,140,.42)}
-.dashboard .hud__canvas{opacity:.62;filter:saturate(.5) brightness(.95)}
-/* roll/pitch/yaw + tiles: softer, bigger frost */
-.dashboard .att3d__data{background:rgba(255,255,255,.16)}
-.dashboard .sensor-tile{border-radius:18px}
-
-
-/* ==========================================================
-   v4 - SAME GLASS LOOK ON EVERY PAGE
-   Dashboard is untouched. Every other page (Settings, Sensors,
-   Params, Message, Zone, Mission, Logs, Charts, Firmware, RTK)
-   gets the frosted panel, glass tiles and blue active pills.
+   SAME GLASS LOOK ON EVERY OTHER PAGE
    ========================================================== */
 
-/* 1) glass colour tokens - re-mapped inside non-dashboard pages and popups,
-      so every existing component turns glass without touching its own CSS */
+/* token remap for non-dashboard pages and popups */
 .app__main:not(:has(.dashboard)),
 .setup-panel,.topbar__lang-menu,.confirm-dialog,.connect-dialog,.ai-dialog,
 .log-params-modal,.flight-map-cache-popover,.flight-map-cache-menu{
@@ -309,9 +293,9 @@ body::before{
   --bg-tertiary:rgba(255,255,255,.13);
   --bg-hover:rgba(255,255,255,.28);
   --text-primary:#fff;
-  --text-secondary:rgba(255,255,255,.80);
-  --text-tertiary:rgba(255,255,255,.62);
-  --text-disabled:rgba(255,255,255,.44);
+  --text-secondary:#f4f8ff;
+  --text-tertiary:#e6eefc;
+  --text-disabled:#d2deef;
   --border:rgba(255,255,255,.30);
   --border-hover:rgba(255,255,255,.52);
   --accent-dim:rgba(58,165,255,.30);
@@ -325,7 +309,7 @@ body::before{
   color:#fff;
 }
 
-/* 2) the big frosted panel (same as .dashboard) */
+/* big frosted panel */
 .app__main:not(:has(.dashboard)){
   margin:14px;
   background:var(--glass-panel);
@@ -339,20 +323,20 @@ body::before{
 .app__main:not(:has(.dashboard)) .mission-page,
 .app__main:not(:has(.dashboard)) .rtk-page{background:transparent}
 
-/* 3) titles */
+/* titles */
 .app__main:not(:has(.dashboard)) :is(h1,h2,.settings__title,.sensors__title,.console__title,.params__title){
   color:#fff;text-shadow:0 0 14px rgba(255,255,255,.35);
 }
 
-/* 4) tab bars: glass strip + blue gradient active pill */
-.app__main:not(:has(.dashboard)) :is(.settings__tabs,.sensors__tabs,.console__tabs){
+/* tab bars */
+.app__main:not(:has(.dashboard)) :is(.settings__tabs,.sensors__tabs,.console__tabs,.logs__tabs){
   background:rgba(255,255,255,.18);
   border:1px solid var(--glass-border);
   border-radius:18px;padding:4px;
   box-shadow:var(--glass-hilite),0 6px 18px rgba(20,12,6,.14);
 }
 .app__main:not(:has(.dashboard)) :is(.settings__tab,.sensors__tab,.console__tab,.logs__tab,.firmware-page__tab){
-  color:rgba(255,255,255,.88);border-radius:14px;
+  color:rgba(255,255,255,.92);border-radius:14px;
   transition:all .25s var(--glass-ease);
 }
 .app__main:not(:has(.dashboard)) :is(.settings__tab,.sensors__tab,.console__tab,.logs__tab,.firmware-page__tab):hover{
@@ -365,7 +349,7 @@ body::before{
   box-shadow:0 8px 20px rgba(10,124,255,.45),inset 0 1px 0 rgba(255,255,255,.5);
 }
 
-/* 5) content card under the tabs: bluish steel glass (like the HUD card) */
+/* steel-glass content cards */
 .app__main:not(:has(.dashboard)) :is(.settings__content,.sensors__content){
   margin-top:var(--space-4);padding:var(--space-5);
   background:
@@ -376,8 +360,8 @@ body::before{
   border-radius:26px;
   box-shadow:var(--glass-shadow),var(--glass-hilite);
 }
-.app__main:not(:has(.dashboard)) :is(.settings__placeholder,.sensors__placeholder){height:100%;min-height:260px;color:rgba(255,255,255,.85)}
-.app__main:not(:has(.dashboard)) :is(.params__empty-icon,.console__empty){color:rgba(255,255,255,.7)}
+.app__main:not(:has(.dashboard)) :is(.settings__placeholder,.sensors__placeholder){height:100%;min-height:260px;color:rgba(255,255,255,.9)}
+.app__main:not(:has(.dashboard)) :is(.params__empty-icon,.console__empty){color:rgba(255,255,255,.8)}
 .app__main:not(:has(.dashboard)) .params--empty{
   margin:var(--space-6);height:calc(100% - 48px);
   background:linear-gradient(160deg,rgba(92,138,190,.50) 0%,rgba(52,86,132,.46) 100%);
@@ -385,8 +369,19 @@ body::before{
   box-shadow:var(--glass-shadow),var(--glass-hilite);
 }
 .app__main:not(:has(.dashboard)) .params__empty-icon{opacity:.8}
+.app__main:not(:has(.dashboard)) :is(.fcfiles--empty,.console__main>.console__empty){
+  min-height:320px;
+  background:
+    linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/36px 36px,
+    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/36px 36px,
+    linear-gradient(160deg,rgba(92,138,190,.50) 0%,rgba(52,86,132,.46) 100%);
+  border:1px solid var(--glass-border);border-radius:26px;
+  box-shadow:var(--glass-shadow),var(--glass-hilite);color:rgba(255,255,255,.9);
+}
 
-/* 6) form controls */
+/* form controls */
+input,select,textarea{color:#fff}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.75)}
 .app__main:not(:has(.dashboard)) :is(input,select,textarea){
   background:rgba(255,255,255,.16);color:#fff;border-color:var(--glass-border);
   color-scheme:dark;
@@ -394,17 +389,20 @@ body::before{
 .app__main:not(:has(.dashboard)) :is(input,select,textarea):focus{
   border-color:rgba(120,200,255,.9);box-shadow:0 0 0 3px rgba(79,208,255,.25);outline:none;
 }
-.app__main:not(:has(.dashboard)) ::placeholder{color:rgba(255,255,255,.5)}
+.app__main:not(:has(.dashboard)) ::placeholder{color:rgba(255,255,255,.7)}
 .app__main:not(:has(.dashboard)) option{background:#3a4a63;color:#fff}
 
-/* 7) glass scrollbars */
+/* scrollbars */
 .app__main:not(:has(.dashboard)) *{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.4) transparent}
 .app__main:not(:has(.dashboard)) ::-webkit-scrollbar{width:8px;height:8px}
 .app__main:not(:has(.dashboard)) ::-webkit-scrollbar-track{background:transparent}
 .app__main:not(:has(.dashboard)) ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.4);border-radius:8px}
 
-/* 8) zone (embedded map) + terminal + mission floating cards */
-.app__main:not(:has(.dashboard)) .cda-zone{overflow:hidden;border-radius:26px}
+/* zone, terminal, mission cards */
+.app__main:not(:has(.dashboard)) .cda-zone{overflow:hidden;border-radius:26px;padding:14px;box-sizing:border-box;gap:10px}
+.app__main:not(:has(.dashboard)) .cda-zone iframe{
+  border-radius:22px;border:1px solid var(--glass-border);box-shadow:var(--glass-shadow);
+}
 .app__main:not(:has(.dashboard)) .xterm-viewport{background:transparent!important}
 .app__main:not(:has(.dashboard)) :is(.flight-map-mode-switch,.flight-map-card,.mission-panel){
   background:rgba(60,72,98,.58);
@@ -412,7 +410,7 @@ body::before{
   border:1px solid var(--glass-border);box-shadow:var(--glass-shadow),var(--glass-hilite);color:#fff;
 }
 
-/* 9) popups / dialogs / dropdowns */
+/* popups / dialogs / dropdowns */
 .setup-panel,.topbar__lang-menu,.confirm-dialog,.connect-dialog,.ai-dialog,
 .log-params-modal,.flight-map-cache-popover,.flight-map-cache-menu{
   background:rgba(74,84,108,.64);
@@ -422,24 +420,24 @@ body::before{
 }
 .topbar__lang-menu{border-radius:14px}
 
-/* 10) polish: Logs tab bar, empty states as glass cards, Zone frame */
-.app__main:not(:has(.dashboard)) .logs__tabs{
-  background:rgba(255,255,255,.18);border:1px solid var(--glass-border);border-radius:18px;padding:4px;
-  box-shadow:var(--glass-hilite),0 6px 18px rgba(20,12,6,.14);
+/* generic dim text classes (Settings, Params, Logs, Sensors ...) */
+[class*=__label],[class*=__subtitle],[class*=__desc],[class*=__hint],[class*=__meta],[class*=__empty],
+[class*=__sub],[class*=__unit],[class*=__help],[class*=__note]{color:var(--text-secondary)}
+th,td,label,p,span,small{color:inherit}
+
+/* ---------- FALLBACKS ---------- */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  :root,[data-theme=light],[data-theme=dark]{
+    --glass-shell:rgba(38,34,31,.9);--glass-bg:rgba(70,70,78,.85);--glass-bg-strong:rgba(60,62,70,.92);--glass-panel:rgba(120,110,100,.6)
+  }
 }
-.app__main:not(:has(.dashboard)) :is(.fcfiles--empty,.console__main>.console__empty){
-  min-height:320px;
-  background:
-    linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/36px 36px,
-    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/36px 36px,
-    linear-gradient(160deg,rgba(92,138,190,.50) 0%,rgba(52,86,132,.46) 100%);
-  border:1px solid var(--glass-border);border-radius:26px;
-  box-shadow:var(--glass-shadow),var(--glass-hilite);color:rgba(255,255,255,.85);
+@media (prefers-reduced-motion:reduce){
+  body::after{animation:none}
+  .dashboard .att3d:hover,.dashboard .hud:hover,.dashboard .sensor-card:hover,
+  .dashboard .channels-card:hover,.dashboard .qd-card:hover,.dashboard .map-card:hover,
+  .dashboard .sensor-tile:hover{transform:none}
 }
-.app__main:not(:has(.dashboard)) .cda-zone{padding:14px;box-sizing:border-box;gap:10px}
-.app__main:not(:has(.dashboard)) .cda-zone iframe{
-  border-radius:22px;border:1px solid var(--glass-border);box-shadow:var(--glass-shadow);
-}
+@media (max-width:1100px){:root,[data-theme=light],[data-theme=dark]{--glass-blur:14px}}
   </style>
 </head>
 <body>
