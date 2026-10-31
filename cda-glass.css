@@ -250,3 +250,152 @@ body::after{
 }
 /* small laptops: slightly lighter blur = smoother 3D/HUD */
 @media (max-width:1100px){:root{--glass-blur:12px}}
+
+/* ==========================================================
+   v4 - SAME GLASS LOOK ON EVERY PAGE
+   Dashboard is untouched. Every other page (Settings, Sensors,
+   Params, Message, Zone, Mission, Logs, Charts, Firmware, RTK)
+   gets the frosted panel, glass tiles and blue active pills.
+   ========================================================== */
+
+/* 1) glass colour tokens - re-mapped inside non-dashboard pages and popups,
+      so every existing component turns glass without touching its own CSS */
+.app__main:not(:has(.dashboard)),
+.setup-panel,.topbar__lang-menu,.confirm-dialog,.connect-dialog,.ai-dialog,
+.log-params-modal,.flight-map-cache-popover,.flight-map-cache-menu{
+  --bg-primary:rgba(255,255,255,.10);
+  --bg-secondary:rgba(255,255,255,.17);
+  --bg-tertiary:rgba(255,255,255,.13);
+  --bg-hover:rgba(255,255,255,.28);
+  --text-primary:#fff;
+  --text-secondary:rgba(255,255,255,.80);
+  --text-tertiary:rgba(255,255,255,.62);
+  --text-disabled:rgba(255,255,255,.44);
+  --border:rgba(255,255,255,.30);
+  --border-hover:rgba(255,255,255,.52);
+  --accent-dim:rgba(58,165,255,.30);
+  --card-shadow:0 8px 22px rgba(20,12,6,.20),inset 0 1px 0 rgba(255,255,255,.34);
+  --card-shadow-hover:0 12px 28px rgba(20,12,6,.30),inset 0 1px 0 rgba(255,255,255,.45);
+  --card-inset-highlight:inset 0 1px 0 rgba(255,255,255,.34);
+  --card-inset-highlight-hover:inset 0 1px 0 rgba(255,255,255,.45);
+  --shadow-sm:0 2px 6px rgba(20,12,6,.18);
+  --shadow-md:0 6px 16px rgba(20,12,6,.24);
+  --shadow-lg:0 14px 34px rgba(20,12,6,.34);
+  color:#fff;
+}
+
+/* 2) the big frosted panel (same as .dashboard) */
+.app__main:not(:has(.dashboard)){
+  margin:14px;
+  background:var(--glass-panel);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  border:1.5px solid rgba(255,255,255,.55);
+  border-radius:30px;
+  box-shadow:var(--glass-shadow),var(--glass-hilite),0 0 0 1px rgba(255,255,255,.12);
+  min-width:0;
+}
+.app__main:not(:has(.dashboard)) .mission-page,
+.app__main:not(:has(.dashboard)) .rtk-page{background:transparent}
+
+/* 3) titles */
+.app__main:not(:has(.dashboard)) :is(h1,h2,.settings__title,.sensors__title,.console__title,.params__title){
+  color:#fff;text-shadow:0 0 14px rgba(255,255,255,.35);
+}
+
+/* 4) tab bars: glass strip + blue gradient active pill */
+.app__main:not(:has(.dashboard)) :is(.settings__tabs,.sensors__tabs,.console__tabs){
+  background:rgba(255,255,255,.18);
+  border:1px solid var(--glass-border);
+  border-radius:18px;padding:4px;
+  box-shadow:var(--glass-hilite),0 6px 18px rgba(20,12,6,.14);
+}
+.app__main:not(:has(.dashboard)) :is(.settings__tab,.sensors__tab,.console__tab,.logs__tab,.firmware-page__tab){
+  color:rgba(255,255,255,.88);border-radius:14px;
+  transition:all .25s var(--glass-ease);
+}
+.app__main:not(:has(.dashboard)) :is(.settings__tab,.sensors__tab,.console__tab,.logs__tab,.firmware-page__tab):hover{
+  background:rgba(255,255,255,.2);color:#fff;
+}
+.app__main:not(:has(.dashboard)) :is(.settings__tab--active,.sensors__tab--active,.console__tab--active,.logs__tab--active,.firmware-page__tab--active),
+.app__main:not(:has(.dashboard)) :is(.settings__tab--active,.sensors__tab--active,.console__tab--active,.logs__tab--active,.firmware-page__tab--active):hover{
+  color:#fff;font-weight:600;
+  background:linear-gradient(135deg,#4cb0ff 0%,#0a7cff 100%);
+  box-shadow:0 8px 20px rgba(10,124,255,.45),inset 0 1px 0 rgba(255,255,255,.5);
+}
+
+/* 5) content card under the tabs: bluish steel glass (like the HUD card) */
+.app__main:not(:has(.dashboard)) :is(.settings__content,.sensors__content){
+  margin-top:var(--space-4);padding:var(--space-5);
+  background:
+    linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/36px 36px,
+    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/36px 36px,
+    linear-gradient(160deg,rgba(92,138,190,.50) 0%,rgba(52,86,132,.46) 100%);
+  border:1px solid var(--glass-border);
+  border-radius:26px;
+  box-shadow:var(--glass-shadow),var(--glass-hilite);
+}
+.app__main:not(:has(.dashboard)) :is(.settings__placeholder,.sensors__placeholder){height:100%;min-height:260px;color:rgba(255,255,255,.85)}
+.app__main:not(:has(.dashboard)) :is(.params__empty-icon,.console__empty){color:rgba(255,255,255,.7)}
+.app__main:not(:has(.dashboard)) .params--empty{
+  margin:var(--space-6);height:calc(100% - 48px);
+  background:linear-gradient(160deg,rgba(92,138,190,.50) 0%,rgba(52,86,132,.46) 100%);
+  border:1px solid var(--glass-border);border-radius:26px;
+  box-shadow:var(--glass-shadow),var(--glass-hilite);
+}
+.app__main:not(:has(.dashboard)) .params__empty-icon{opacity:.8}
+
+/* 6) form controls */
+.app__main:not(:has(.dashboard)) :is(input,select,textarea){
+  background:rgba(255,255,255,.16);color:#fff;border-color:var(--glass-border);
+  color-scheme:dark;
+}
+.app__main:not(:has(.dashboard)) :is(input,select,textarea):focus{
+  border-color:rgba(120,200,255,.9);box-shadow:0 0 0 3px rgba(79,208,255,.25);outline:none;
+}
+.app__main:not(:has(.dashboard)) ::placeholder{color:rgba(255,255,255,.5)}
+.app__main:not(:has(.dashboard)) option{background:#3a4a63;color:#fff}
+
+/* 7) glass scrollbars */
+.app__main:not(:has(.dashboard)) *{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.4) transparent}
+.app__main:not(:has(.dashboard)) ::-webkit-scrollbar{width:8px;height:8px}
+.app__main:not(:has(.dashboard)) ::-webkit-scrollbar-track{background:transparent}
+.app__main:not(:has(.dashboard)) ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.4);border-radius:8px}
+
+/* 8) zone (embedded map) + terminal + mission floating cards */
+.app__main:not(:has(.dashboard)) .cda-zone{overflow:hidden;border-radius:26px}
+.app__main:not(:has(.dashboard)) .xterm-viewport{background:transparent!important}
+.app__main:not(:has(.dashboard)) :is(.flight-map-mode-switch,.flight-map-card,.mission-panel){
+  background:rgba(60,72,98,.58);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%);
+  border:1px solid var(--glass-border);box-shadow:var(--glass-shadow),var(--glass-hilite);color:#fff;
+}
+
+/* 9) popups / dialogs / dropdowns */
+.setup-panel,.topbar__lang-menu,.confirm-dialog,.connect-dialog,.ai-dialog,
+.log-params-modal,.flight-map-cache-popover,.flight-map-cache-menu{
+  background:rgba(74,84,108,.64);
+  -webkit-backdrop-filter:blur(26px) saturate(140%);backdrop-filter:blur(26px) saturate(140%);
+  border:1px solid var(--glass-border);border-radius:var(--glass-radius);
+  box-shadow:var(--glass-shadow-hover),var(--glass-hilite);
+}
+.topbar__lang-menu{border-radius:14px}
+
+/* 10) polish: Logs tab bar, empty states as glass cards, Zone frame */
+.app__main:not(:has(.dashboard)) .logs__tabs{
+  background:rgba(255,255,255,.18);border:1px solid var(--glass-border);border-radius:18px;padding:4px;
+  box-shadow:var(--glass-hilite),0 6px 18px rgba(20,12,6,.14);
+}
+.app__main:not(:has(.dashboard)) :is(.fcfiles--empty,.console__main>.console__empty){
+  min-height:320px;
+  background:
+    linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/36px 36px,
+    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/36px 36px,
+    linear-gradient(160deg,rgba(92,138,190,.50) 0%,rgba(52,86,132,.46) 100%);
+  border:1px solid var(--glass-border);border-radius:26px;
+  box-shadow:var(--glass-shadow),var(--glass-hilite);color:rgba(255,255,255,.85);
+}
+.app__main:not(:has(.dashboard)) .cda-zone{padding:14px;box-sizing:border-box;gap:10px}
+.app__main:not(:has(.dashboard)) .cda-zone iframe{
+  border-radius:22px;border:1px solid var(--glass-border);box-shadow:var(--glass-shadow);
+}
