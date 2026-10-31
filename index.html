@@ -438,6 +438,93 @@ th,td,label,p,span,small{color:inherit}
   .dashboard .sensor-tile:hover{transform:none}
 }
 @media (max-width:1100px){:root,[data-theme=light],[data-theme=dark]{--glass-blur:14px}}
+
+/* ==========================================================
+   v5 - CONNECTED (GREEN) STATES: bright glass green + black text
+   ========================================================== */
+:root,[data-theme=light],[data-theme=dark]{
+  --green-glass-a:rgba(134,255,200,.92);
+  --green-glass-b:rgba(66,224,156,.88);
+  --on-green:#04140c;
+}
+
+/* top-right pill when connected */
+.topbar__connect-btn--connected{
+  background:linear-gradient(135deg,var(--green-glass-a),var(--green-glass-b));
+  color:var(--on-green);
+  border:1px solid rgba(255,255,255,.75);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 6px 20px rgba(40,200,130,.45),0 0 22px rgba(90,255,180,.45);
+  font-weight:700;text-shadow:none;
+}
+.topbar__connect-btn--connected:hover{
+  background:linear-gradient(135deg,#a4ffd8,#52e8a6);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 8px 24px rgba(40,200,130,.55),0 0 28px rgba(90,255,180,.6);
+}
+.topbar__connect-btn--connected .topbar__status-dot--connected{background:#0a7a4c;box-shadow:0 0 8px rgba(10,122,76,.7)}
+
+/* dashboard sensor tiles: healthy = bright glass green, black icon + text */
+.dashboard .sensor-tile--healthy{
+  background:linear-gradient(135deg,var(--green-glass-a),var(--green-glass-b));
+  border-color:rgba(255,255,255,.75);
+  box-shadow:0 10px 24px rgba(40,200,130,.40),inset 0 1px 0 rgba(255,255,255,.7);
+}
+.dashboard .sensor-tile--healthy .sensor-tile__label{color:var(--on-green);font-weight:800;text-shadow:0 1px 0 rgba(255,255,255,.55)}
+
+/* telemetry bar: green values were unreadable on the light glass -> dark */
+.tbar__value--good,.tbar__link-quality-value--good,.tbar__link-status--good{color:var(--on-green);font-weight:700}
+.tbar__batt-fill--good,.tbar__link-meter-fill--good,.tbar__ekf-bar-fill--good{background:linear-gradient(90deg,#5fe6a8,#2fcf86)}
+.tbar__ekf-dot--good{background:#2fcf86;box-shadow:0 0 8px rgba(47,207,134,.7)}
+
+/* pre-arm "ready" badge */
+.prearm__badge--ready{
+  background:linear-gradient(135deg,var(--green-glass-a),var(--green-glass-b));
+  color:var(--on-green);border-color:rgba(255,255,255,.7);font-weight:700;
+}
+
+/* bottom status bar is dark glass, so connected text stays light mint there */
+.statusbar__value--connected{color:#8dffd0;text-shadow:0 0 10px rgba(90,255,180,.5)}
+
+/* ==========================================================
+   v6 - TELEMETRY BAR: light text/icons -> black, green mode pill readable
+   ========================================================== */
+.telemetry-bar{--tbar-ink:#0a0f14;--tbar-ink-dim:rgba(10,15,20,.66)}
+.telemetry-bar,.telemetry-bar .tbar__group{color:var(--tbar-ink)}
+
+/* icons */
+.telemetry-bar .tbar__icon,
+.telemetry-bar .tbar__icon svg,
+.telemetry-bar .tbar__icon svg *{color:var(--tbar-ink);stroke:var(--tbar-ink)}
+
+/* numbers + units + labels */
+.telemetry-bar :is(.tbar__value,.tbar__stack-value,.tbar__stack-label,.tbar__label){color:var(--tbar-ink);font-weight:700}
+.telemetry-bar :is(.tbar__unit,.tbar__stack-unit){color:var(--tbar-ink-dim);font-weight:600}
+.telemetry-bar .tbar__gps-fix{color:var(--tbar-ink-dim);font-weight:700}
+
+/* armed / disarmed badge */
+.telemetry-bar .tbar__arm-badge--disarmed{
+  color:var(--tbar-ink);background:rgba(255,255,255,.38);border:1px solid rgba(255,255,255,.6);font-weight:700;
+}
+
+/* flight-mode pill: bright green glass, black text (was dark green on pink = invisible) */
+.telemetry-bar .tbar__mode-pill{
+  background:linear-gradient(135deg,var(--green-glass-a),var(--green-glass-b));
+  color:var(--on-green);font-weight:800;
+  border:1px solid rgba(255,255,255,.75);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 4px 14px rgba(40,200,130,.35);
+}
+
+/* warning / critical values: darker shades so they read on light glass */
+.telemetry-bar .tbar__value--warn{color:#7a3f00}
+.telemetry-bar .tbar__value--crit{color:#9c0f0f}
+
+/* battery outline + right-side buttons (reboot / setup guide / pre-arm) */
+.telemetry-bar .tbar__batt-bar{border-color:var(--tbar-ink-dim)}
+.telemetry-bar .tbar__batt-fill--dim{background:rgba(10,15,20,.28)}
+.telemetry-bar .tbar__guide-actions button,
+.telemetry-bar .tbar__guide-actions button svg,
+.telemetry-bar .reboot-fc-btn{color:var(--tbar-ink)}
+.telemetry-bar .tbar__guide-actions button svg{stroke:var(--tbar-ink)}
+.telemetry-bar .tbar__guide-actions button{background:rgba(255,255,255,.34);border-color:rgba(255,255,255,.6);font-weight:700}
   </style>
 </head>
 <body>

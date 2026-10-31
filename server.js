@@ -1,4 +1,3 @@
-
 const http = require("http");
 const https = require("https");
 const fs = require("fs");
@@ -101,24 +100,13 @@ const server = http.createServer((req, res) => {
     );
   }
 
-<<<<<<< HEAD
   // Digital Sky map proxy
-  if (p === "/digital-sky-map" || p.startsWith("/digital-sky-map/")) {
-    return proxy(
-      req,
-      res,
-      "digitalsky.aai.aero",
-      p + u.search
-    );
-  }
-=======
   if (p === "/digital-sky-map" || p === "/digital-sky-map/") {
-  return proxy(req, res, "digitalsky.aai.aero", "/" + u.search);
-}
-if (p.startsWith("/digital-sky-map/")) {
-  return proxy(req, res, "digitalsky.aai.aero", p.slice("/digital-sky-map".length) + u.search);
-}
->>>>>>> 1a6c9f4 (change the some files)
+    return proxy(req, res, "digitalsky.aai.aero", "/" + u.search);
+  }
+  if (p.startsWith("/digital-sky-map/")) {
+    return proxy(req, res, "digitalsky.aai.aero", p.slice("/digital-sky-map".length) + u.search);
+  }
 
   // Serve the home page
   if (p === "/") {
